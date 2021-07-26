@@ -6,27 +6,31 @@ import Product from './models/Product'
 
 class Playground{
     static async play(){
-        const test = await Product.findAll({
+
+        const test = await Order.findAll({
             include: [
                 {
-                    model: Order,
+                    model: Product,
                     where: {
-                        status: "Pendente"
+                        name:{
+                            [Op.like]: 'Pizza%'
+                        }
                     }
                 }
             ],
 
-            where: {
-                name:{
-                    [Op.like]: 'Pizza%'
-                }
+            where:{
+                status: "Pendente"
             }
             
         })
+
+
 
         console.log(JSON.stringify(test, null, 2))
     }
 }
 
 Playground.play()
+console.log('blabla')
 

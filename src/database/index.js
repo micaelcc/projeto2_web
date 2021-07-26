@@ -10,8 +10,9 @@ const models = [User, Order, Product]
 class Database{
     constructor(){
         this.connection = new Sequelize(databaseConfig);
-        //this.associate();
+        
         this.init();
+        this.associate();
         
     }
 
@@ -20,11 +21,21 @@ class Database{
     }
 
     associate(){       
-        models.forEach(model => {
-            if(model.associate){
-                model.associate(this.connection.models)
-            }
-        })
+        models[1].hasOne(
+            this.connection.models.Product, 
+            {through: 'orders', foreignKey: 'id'}
+        )
+
+        models[2].belongsTo(
+            this.connection.models.Order, 
+            {through: 'products', foreignKey: 'id'}
+        )
+
+        models[1].belongsTo(
+            this.connection.models.User, 
+            {through: 'users', foreignKey: 'id'}
+        )
+        
     }
 }
 

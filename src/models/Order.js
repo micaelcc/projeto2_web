@@ -21,13 +21,8 @@ class Order extends Model{
         
     }
    
-    static associate(models){
-        this.belongsTo(models.User)
-    }
 
-    static associate(models){
-        this.hasOne(models.Product)
-    }
+    
 
 
 }

@@ -39,9 +39,6 @@ class User extends Model{
         return bcrypt.compare(password, this.password_hash);
     }
 
-    static associate(models){
-        this.hasMany(models.Order)
-    }
 }
 
 export default User
