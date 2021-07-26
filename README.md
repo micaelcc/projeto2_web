@@ -14,8 +14,8 @@ npm run dev
 
 Exemplo: 
 
-SECRET=exemplo
-DB_NAME=exemplo
-DB_PASS=exemplo
-DB_HOST=exemplo
-DB_USERNAME=exemplo
+SECRET=exemplo<br/>
+DB_NAME=exemplo<br/>
+DB_PASS=exemplo<br/>
+DB_HOST=exemplo<br/>
+DB_USERNAME=exemplo<br/>
