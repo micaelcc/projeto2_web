@@ -9,11 +9,8 @@ import admin from './middlewares/admin';
 
 const routes = new Router();
 
-routes.get('/', (req, res) => {
-    return res.json({message: 'Teste'});
-});
 
-routes.get('/users', UserController.show);
+routes.get('/users', authMiddleware, admin, UserController.show);
 
 routes.post('/users', UserController.store);
 
