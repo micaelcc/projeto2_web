@@ -6,13 +6,28 @@ class User extends Model{
     static init(sequelize){
         super.init(
             {
-                name: Sequelize.STRING,
-                email: Sequelize.STRING,
-                password_hash: Sequelize.STRING,
-                admin: Sequelize.BOOLEAN
+                name: {
+                    type: Sequelize.STRING,
+                    allowNull: false,
+                  },
+                  email:{
+                    type: Sequelize.STRING,
+                    allowNull: false,
+                    unique: true
+                  },
+                  password_hash: {
+                    type: Sequelize.STRING,
+                    allowNull: false,
+                  },
+            
+                  admin: {
+                    type: Sequelize.BOOLEAN,
+                    allowNull: false
+                  },
             },
             {
                 sequelize,
+                modelName: 'User'
             }
         )
     
@@ -22,6 +37,10 @@ class User extends Model{
 
     checkPassword(password){
         return bcrypt.compare(password, this.password_hash);
+    }
+
+    static associate(models){
+        this.hasMany(models.Order)
     }
 }
 

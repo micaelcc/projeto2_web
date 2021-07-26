@@ -8,19 +8,25 @@ class Order extends Model{
                 observation: Sequelize.STRING,
                 id_product: Sequelize.INTEGER,
                 id_user: Sequelize.INTEGER,
+                status: Sequelize.STRING
 
             },
             {
                 sequelize,
+                modelName: 'Order'
             }
         )
             
 
         
     }
+   
+    static associate(models){
+        this.belongsTo(models.User)
+    }
 
     static associate(models){
-        this.belongsTo(models.Order, { foreignKey: 'id', as: 'users'}, { foreignKey: 'id', as: 'products'});
+        this.hasOne(models.Product)
     }
 
 

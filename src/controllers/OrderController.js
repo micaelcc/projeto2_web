@@ -6,7 +6,6 @@ import './../database/'
 
 class OrderController{
     async store(req, res){
-        console.log(req.userId)
         const UserExists = await User.findByPk(req.userId);
 
         if(!UserExists){
@@ -23,7 +22,8 @@ class OrderController{
         const order = await Order.create({
             id_user: req.userId,
             id_product: req.body.id_product,
-            observation: req.body.observation
+            observation: req.body.observation,
+            status: "Pendente"
         });
 
 
@@ -47,8 +47,11 @@ class OrderController{
                 return res.status(400).json({error: 'product not exists'});
             }
 
-            product.id_product = req.body.id_product;
+            order.id_product = req.body.id_product;
         }
+
+        if(req.body.status)
+            order.status = req.body.status
 
 
         const att = await product.save();

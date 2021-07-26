@@ -1,3 +1,4 @@
+
 'use strict';
 
 module.exports = {
@@ -49,6 +50,11 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false,
       },
+
+      status:{
+        type: Sequelize.STRING,
+        allowNUll: false
+      }
 
     })
 

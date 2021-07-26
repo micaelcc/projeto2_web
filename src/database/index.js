@@ -10,11 +10,21 @@ const models = [User, Order, Product]
 class Database{
     constructor(){
         this.connection = new Sequelize(databaseConfig);
+        //this.associate();
         this.init();
+        
     }
 
     init(){
         models.forEach(model => model.init(this.connection))
+    }
+
+    associate(){       
+        models.forEach(model => {
+            if(model.associate){
+                model.associate(this.connection.models)
+            }
+        })
     }
 }
 
