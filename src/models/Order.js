@@ -8,7 +8,7 @@ class Order extends Model{
                 observation: Sequelize.STRING,
                 id_product: Sequelize.INTEGER,
                 id_user: Sequelize.INTEGER,
-                status: Sequelize.STRING
+                status: Sequelize.STRING,
 
             },
             {

@@ -5,7 +5,7 @@ import './../database/'
 import bcrypt from 'bcrypt';
 
 class UserController{
-    async store(req, res){
+    async store(req, res){ 
 
         const userExists = await User.findOne({where: {email: req.body.email}});
 
@@ -26,32 +26,33 @@ class UserController{
     }
 
     async update(req, res){
-        const {id, email, oldPassword} = req.body;
+        const user = await User.findByPk(req.userId);
 
-        const user = await User.findByPk(req.id);
+        const {email, name, oldPassword, password} = req.body;
 
-        if(user.email !== email){
+        if(email && user.email !== email){
             const userExists = await User.findOne({
-                where: {email},
+                where: {email: req.body.email},
             })
 
             if(userExists)
                 return res.status(400).json({error: 'User already exists.'});
         }
 
-        const checkPass = await user.checkPassword(oldPassword);
+        
+        const checkPass = user.checkPassword(oldPassword)
 
+        
         if(oldPassword && !checkPass){
             return res.status(401).json({error: 'Password does not match'});
         }
 
-        await user.update({
-            email,
-            password,
-            name,
-        })
+        if(password)
+            user.password_hash = await bcrypt.hash(password, 8);
 
-        return res.status(200).json({id, name});
+        const att = await user.save(req.body)
+
+        return res.status(200).json({id: att.id, name: att.name, email: att.email});
         
     }
 
@@ -70,11 +71,11 @@ class UserController{
     async destroy(req, res){
         const user = await User.findByPk(req.UserId);
 
-        if(!product){
+        if(!user){
             return res.status(400).json({error: 'User not exists'});
         }
 
-        product.destroy();
+        user.destroy();
 
         return res.json({message: `User id(${req.userId}) deleted!`});
         

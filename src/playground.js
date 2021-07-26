@@ -13,7 +13,7 @@ class Playground{
                     model: Product,
                     where: {
                         name:{
-                            [Op.like]: 'Pizza%'
+                            [Op.like]: 'Carro'
                         }
                     }
                 }
@@ -32,5 +32,5 @@ class Playground{
 }
 
 Playground.play()
-console.log('blabla')
+
 
